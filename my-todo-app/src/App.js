@@ -1,24 +1,44 @@
-import logo from './logo.svg';
-import './App.css';
+import reset from "styled-reset";
+import styled, {createGlobalStyle} from 'styled-components';
+import MainPage from "./Components/MainPage";
+
+const GlobalStyle = createGlobalStyle`
+  // reset Css
+  ${reset}
+
+  body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  * {
+    box-sizing: inherit;
+    user-select: none;
+  }
+`;
+
+const StyledHeader = styled.header`
+  width: 100%;
+  height: 100px;
+  font-size: 24px;
+  font-weight: bold;
+  color: green;
+  background-color: aquamarine;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <GlobalStyle />
+      <StyledHeader>
+        Insoo's TODO-APP
+      </StyledHeader>
+      <MainPage />
+    </>
   );
 }
 

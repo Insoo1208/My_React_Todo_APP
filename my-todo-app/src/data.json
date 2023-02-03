@@ -1,0 +1,14 @@
+[
+  {
+    "id": 1,
+    "title": "TODO SAMPLE",
+    "content": "This is Sample Content",
+    "isChecked": "false"
+  },
+  {
+    "id": 2,
+    "title": "TODO SAMPLE CHECKED",
+    "content": "This is Checked Sample Content",
+    "isChecked": "true"
+  }
+]
