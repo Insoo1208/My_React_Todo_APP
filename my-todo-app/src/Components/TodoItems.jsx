@@ -1,29 +1,31 @@
 import styled from 'styled-components';
 
 const Wrapper = styled.div`
-  width: 100%;
-  margin: 10px 0;
-  border: 1px solid gray;
+  width: calc(100% - 2rem);
+  margin: 0 auto;
+  height: 75px;
   border-radius: 8px;
-  background-color: azure;
+  background-color: ${props => props.stared ? 'yellow' : 'azure'};
+  color: ${props => props.stared ? 'black' : 'green'};
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
+  margin-bottom: 1rem;
 `;
 
 const StyledTitle = styled.h1`
-  padding: 15px 5px;
+  padding: 10px 5px;
   font-weight: bold;
 `;
 
 const StyledContent = styled.p`
-  padding: 10px 5px;
+  padding: 6px 5px;
 `;
 
 function TodoItems(props) {
-  const { todo: { title, content } } = props;
+  const { todo: { title, content, stared } } = props;
   return (
-    <Wrapper>
+    <Wrapper stared={stared}>
       <StyledTitle>{title}</StyledTitle>
       <StyledContent>{content}</StyledContent>
     </Wrapper>

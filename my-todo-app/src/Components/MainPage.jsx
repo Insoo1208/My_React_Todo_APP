@@ -6,10 +6,9 @@ import TodoList from './TodoList';
 import { v4 as uuidv4 } from "uuid";
 
 const Wrapper = styled.div`
-  width: 800px;
+  width: 100%;
+  height: 600px;
   margin: 0 auto;
-  margin-top: 6rem;
-  border-radius: 4px;
   overflow: hidden;
   display: flex;
   justify-content: center;
@@ -20,15 +19,14 @@ const Wrapper = styled.div`
 function MainPage() {
   const [todos, setTodos] = useState(data);
 
-  const addTodo = useCallback((title, content) => {
-    const newTodo = {id: uuidv4(), title , content, isChecked:false}
+  const addTodo = useCallback((title, isStared) => {
+    const newTodo = {id: uuidv4(), title , content: '', isChecked: false, stared: isStared}
     setTodos(todos.concat(newTodo));
   }, [todos])
 
   return (
     <Wrapper>
-      <TodoList todos={todos}/>
-      <AddTodo onClick={addTodo}/>
+      <TodoList todos={todos} onClick={addTodo}/>
     </Wrapper>
   );
 }

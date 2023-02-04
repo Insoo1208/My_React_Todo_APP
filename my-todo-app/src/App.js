@@ -10,6 +10,7 @@ const GlobalStyle = createGlobalStyle`
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    background-color: #2f2f2f;
   }
 
   * {
@@ -18,11 +19,19 @@ const GlobalStyle = createGlobalStyle`
   }
 `;
 
+const TodoWrapper = styled.div`
+  width: 1200px;
+  margin: 0 auto;
+  margin-top: 6rem;
+  overflow: hidden;
+`;
+
 const StyledHeader = styled.header`
   width: 100%;
   height: 100px;
   font-size: 24px;
   font-weight: bold;
+  border-radius: 8px;
   color: green;
   background-color: aquamarine;
   display: flex;
@@ -34,10 +43,12 @@ function App() {
   return (
     <>
       <GlobalStyle />
-      <StyledHeader>
-        Insoo's TODO-APP
-      </StyledHeader>
-      <MainPage />
+      <TodoWrapper>
+        <StyledHeader>
+          Insoo's TODO-APP
+        </StyledHeader>
+        <MainPage />
+      </TodoWrapper>
     </>
   );
 }

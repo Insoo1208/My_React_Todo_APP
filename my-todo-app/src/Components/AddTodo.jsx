@@ -1,38 +1,41 @@
 import { useState } from 'react';
 import styled from 'styled-components';
+import { MdStar, MdStarOutline } from "react-icons/md";
 
 const Wrapper = styled.div`
-  width: 300px;
-  height: 300px;
+  width: 100%;
+  height: 75px;
   padding: 20px;
   background-color: beige;
-  border: 2px solid black;
-  border-radius: 8px;
+  margin-bottom: 10px;
+  display: flex;
+`;
+
+const StarButton = styled.div`
+  width: 50px;
+  height: 50px;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: black;
 `;
 
 function AddTodo(props) {
   const { onClick } = props;
   const [title, setTitle] = useState('');
-  const [content, setContent] = useState('');
-
-  const handleAdd = (title, content) => {
-    onClick(title, content);
-    setTitle('');
-    setContent('');
-  }
-
+  const [isStared, setIsStared] = useState(false);
+  
   return (
     <Wrapper>
+      <StarButton onClick={() => setIsStared(isStared => !isStared)}>
+        {isStared ? <MdStar /> : <MdStarOutline /> }
+      </StarButton>
       <label>
-        Title:
         <input type="text" value={title} onChange={e => setTitle(e.target.value)}  />
       </label>
-      <br />
-      <label>
-        content:
-        <input type="text" value={content} onChange={e => setContent(e.target.value)}  />
-      </label>
-      <button onClick={() => {handleAdd(title, content)}} disabled={!(title && content)}>add</button>
+      <button onClick={() => {
+        onClick(title, isStared);
+        setTitle('');
+      }} disabled={!title}>add</button>
     </Wrapper>
   );
 }
