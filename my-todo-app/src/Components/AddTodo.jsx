@@ -65,7 +65,7 @@ function AddTodo() {
       </div>
       <label htmlFor='addTodoInput' />
       <input className='input-box' id='addTodoInput' type="text" value={title} onChange={e => setTitle(e.target.value)} spellCheck={false} />
-      <button className='input-button' onClick={() => handleAdd(title, isStared)} disabled={!title}>add</button>
+      <button className='input-button' onClick={() => handleAdd(title, isStared)} disabled={!title}>Add</button>
     </Wrapper>
   );
 }
