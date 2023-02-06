@@ -1,6 +1,8 @@
+import { useContext } from 'react';
 import styled from 'styled-components';
+import TodoContext from '../Contexts/TodoContext';
 import AddTodo from './AddTodo';
-import TodoItems from './TodoItems';
+import TodoItems from './Items/TodoItems';
 
 const Wrapper = styled.div`
   width: 100%;
@@ -29,31 +31,31 @@ const Wrapper = styled.div`
   .Completed {
     width: 40%;
     background-color: blueviolet;
-    padding-top: 10px;
+    padding-top: 1rem;
   } 
 `;
 
-function TodoList(props) {
-  const { todos, onClick } = props;
+function TodoList() {
+  const { todos } = useContext(TodoContext);
 
-  const handleTodo =  () => {
+  const handleTodo = checkedvalue => {
+    const isChecked = checkedvalue;
     let notStared = [];
-    const newArr = todos.reduce((arr, todo) => {
-      if (!todo.isChecked && todo.stared) arr.push(<TodoItems key={todo.id} todo={todo} />);
-      else if (!todo.isChecked && !todo.stared) notStared.push(<TodoItems key={todo.id} todo={todo} />);
-      return arr;
-    }, []);
+    const newArr = todos.map((todo) => {
+      if (todo.isChecked === isChecked && todo.stared) return (<TodoItems key={todo.id} todo={todo}/>);
+      else if (todo.isChecked === isChecked && !todo.stared) notStared.push(<TodoItems key={todo.id} todo={todo} />);
+    });
     return newArr.concat(notStared);
   };
 
   return (
     <Wrapper>
       <div className="NotYet">
-        <AddTodo onClick={onClick}/>
-        {handleTodo()}
+        <AddTodo />
+        {handleTodo(false)}
       </div>
       <div className="Completed">
-        {todos.map(todo => { if (todo.isChecked) return <TodoItems key={todo.id} todo={todo} />})}
+        {handleTodo(true)}
       </div>
     </Wrapper>
   );

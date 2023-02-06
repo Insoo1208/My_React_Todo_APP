@@ -1,6 +1,8 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import styled from 'styled-components';
 import { MdStar, MdStarOutline } from "react-icons/md";
+import { v4 as uuidv4 } from "uuid";
+import TodoContext from '../Contexts/TodoContext';
 
 const Wrapper = styled.div`
   width: 100%;
@@ -9,33 +11,61 @@ const Wrapper = styled.div`
   background-color: beige;
   margin-bottom: 10px;
   display: flex;
-`;
+  column-gap: 15px;
+  align-items: center;
 
-const StarButton = styled.div`
-  width: 50px;
-  height: 50px;
-  font-size: 1.5rem;
-  font-weight: bold;
-  color: black;
-`;
+  .star {
+    width: 5%;
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-align: center;
+    color: #FFD700;
+    cursor: pointer;
+  }
 
-function AddTodo(props) {
-  const { onClick } = props;
+  .input-box {
+    flex: 1;
+    height: 100%;
+    border: none;
+    outline: none;
+    background: transparent;
+    border-bottom: 2px solid green;
+  }
+
+  .input-button {
+    width: 10%;
+    height: 70%;
+    cursor: pointer;
+    color: white;
+    background-color: #3CB371;
+    border: none;
+    border-radius: 6px;
+
+    :hover {
+      background-color: #2E8B57;
+    }
+  }
+`;
+function AddTodo() {
+  const { todos, setTodos } = useContext(TodoContext);
   const [title, setTitle] = useState('');
   const [isStared, setIsStared] = useState(false);
+
+  const handleAdd = (title, isStared) => {
+    const newTodo = {id: uuidv4(), title , content: [], isChecked: false, stared: isStared}
+    setTodos(todos.concat(newTodo));
+    setTitle('');
+    setIsStared(false);
+  };
   
   return (
     <Wrapper>
-      <StarButton onClick={() => setIsStared(isStared => !isStared)}>
+      <div className='star' onClick={() => setIsStared(isStared => !isStared)}>
         {isStared ? <MdStar /> : <MdStarOutline /> }
-      </StarButton>
-      <label>
-        <input type="text" value={title} onChange={e => setTitle(e.target.value)}  />
-      </label>
-      <button onClick={() => {
-        onClick(title, isStared);
-        setTitle('');
-      }} disabled={!title}>add</button>
+      </div>
+      <label htmlFor='addTodoInput' />
+      <input className='input-box' id='addTodoInput' type="text" value={title} onChange={e => setTitle(e.target.value)} spellCheck={false} />
+      <button className='input-button' onClick={() => handleAdd(title, isStared)} disabled={!title}>add</button>
     </Wrapper>
   );
 }

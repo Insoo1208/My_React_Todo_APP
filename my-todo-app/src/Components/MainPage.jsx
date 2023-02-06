@@ -1,9 +1,9 @@
-import { useCallback, useState } from 'react';
+import { createContext, useCallback, useState } from 'react';
 import styled from 'styled-components';
 import data from "../data.json";
-import AddTodo from './AddTodo';
 import TodoList from './TodoList';
 import { v4 as uuidv4 } from "uuid";
+import TodoContext from '../Contexts/TodoContext';
 
 const Wrapper = styled.div`
   width: 100%;
@@ -19,15 +19,13 @@ const Wrapper = styled.div`
 function MainPage() {
   const [todos, setTodos] = useState(data);
 
-  const addTodo = useCallback((title, isStared) => {
-    const newTodo = {id: uuidv4(), title , content: '', isChecked: false, stared: isStared}
-    setTodos(todos.concat(newTodo));
-  }, [todos])
-
   return (
-    <Wrapper>
-      <TodoList todos={todos} onClick={addTodo}/>
-    </Wrapper>
+    <TodoContext.Provider value={{ todos, setTodos }}>
+      <Wrapper>
+        <TodoList />
+        {/* <TodoList /> */}
+      </Wrapper>
+    </TodoContext.Provider>
   );
 }
 
