@@ -24,6 +24,15 @@ const TodoWrapper = styled.div`
   margin: 0 auto;
   margin-top: 6rem;
   overflow: hidden;
+
+  @media screen and (min-width: 768px) and (max-width: 1200px) {
+    width: 768px;
+  }
+
+  @media screen and (max-width: 768px) {
+    width: 500px;
+    padding: 0 2rem;
+  }
 `;
 
 const StyledHeader = styled.header`

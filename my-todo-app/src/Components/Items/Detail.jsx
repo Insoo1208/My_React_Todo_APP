@@ -64,6 +64,10 @@ const StyledButton = styled.button`
   :hover {
     background-color: ${props => props.stared ? '#80784D' : '#4A6BC7'};
   }
+
+  @media screen and (max-width: 1200px) {
+    width: 20%;
+  }
 `;
 
 function Detail(props) {

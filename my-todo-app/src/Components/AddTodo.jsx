@@ -50,6 +50,10 @@ const Wrapper = styled.div`
     :hover {
       background-color: #2D427A;
     }
+
+    @media screen and (max-width: 1200px) {
+      width: 15%;
+    }
   }
 `;
 function AddTodo() {

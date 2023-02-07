@@ -39,7 +39,18 @@ const Wrapper = styled.div`
       color: #efefef;
       border-radius: 8px 8px 0 0;
     }
-  } 
+  }
+
+  @media screen and (max-width: 768px) {
+    flex-direction: column;
+    row-gap: 1rem;
+    height: auto;
+    overflow-y: scroll;
+    
+    .NotYet, .Completed {
+      width: 100%;
+    }
+  }
 `;
 
 const TodoWrapper = styled.ul`
