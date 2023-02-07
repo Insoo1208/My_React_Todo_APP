@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import { MdStar, MdStarOutline, MdCheckBox, MdCheckBoxOutlineBlank, MdRemoveCircleOutline } from "react-icons/md";
 import { useContext } from 'react';
+import LinesEllipsis from 'react-lines-ellipsis';
 import TodoContext from '../../Contexts/TodoContext';
 
 const Wrapper = styled.div`
@@ -11,15 +12,13 @@ const Wrapper = styled.div`
 const ContentsWrapper = styled.div`
   flex: 1;
   display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
+  align-items: center;
+  overflow: hidden;
 
   .title {
+    flex: 1;
     padding: 10px 5px;
     font-weight: bold;
-  }
-  .content {
-    padding: 6px 5px;
   }
 `;
 
@@ -36,14 +35,14 @@ const CheckWrapper = styled.div`
     margin: auto 0;
     cursor: pointer;
   }
+`;
 
-  .star {
-    color: #FFD700;
-  }
+const Star = styled.div`
+  color: ${props => props.stared ? '#5E5336' : '#FFD700'};
+`;
 
-  .check {
-    color: green;
-  }
+const Check = styled.div`
+  color: ${props => props.stared ? '#5E5336' : '#5E89FB'};
 `;
 
 const DeleteWrapper = styled.div`
@@ -52,7 +51,7 @@ const DeleteWrapper = styled.div`
   justify-content: center;
   align-items: center;
   font-size: 1.5rem;
-  color: red;
+  color: ${props => props.stared ? '#5E5336' : '#efefef'};
   cursor: pointer;
 `;
 
@@ -84,17 +83,24 @@ function Thumbnail(props) {
   return (
     <Wrapper>
       <CheckWrapper>
-        <div className="star" onClick={() => handleStar(id)}>
+        <Star className="star" onClick={() => handleStar(id)} stared={stared}>
           {stared ? <MdStar /> : <MdStarOutline /> }
-        </div>
-        <div className="check" onClick={() => handleCheck(id)}>
+        </Star>
+        <Check className="check" onClick={() => handleCheck(id)} stared={stared} >
           {isChecked ? <MdCheckBox /> : <MdCheckBoxOutlineBlank />}
-        </div>
+        </Check>
       </CheckWrapper>
       <ContentsWrapper onClick={handleDetail}>
-        <div className="title">{title}</div>
+        <LinesEllipsis
+          className="title"
+          text={title}
+          maxLine='1'
+          ellipsis='...'
+          trimRight
+          basedOn='letters'
+        />
       </ContentsWrapper>
-      <DeleteWrapper>
+      <DeleteWrapper stared={stared}>
         <MdRemoveCircleOutline onClick={() => deleteTodo(id)}/>
       </DeleteWrapper>
     </Wrapper>

@@ -1,8 +1,7 @@
-import { createContext, useCallback, useState } from 'react';
+import { useState } from 'react';
 import styled from 'styled-components';
 import data from "../data.json";
 import TodoList from './TodoList';
-import { v4 as uuidv4 } from "uuid";
 import TodoContext from '../Contexts/TodoContext';
 
 const Wrapper = styled.div`
@@ -23,7 +22,6 @@ function MainPage() {
     <TodoContext.Provider value={{ todos, setTodos }}>
       <Wrapper>
         <TodoList />
-        {/* <TodoList /> */}
       </Wrapper>
     </TodoContext.Provider>
   );

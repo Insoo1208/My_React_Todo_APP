@@ -1,5 +1,6 @@
 import { useContext } from 'react';
 import styled from 'styled-components';
+import { AnimatePresence, motion } from 'framer-motion';
 import TodoContext from '../Contexts/TodoContext';
 import AddTodo from './AddTodo';
 import TodoItems from './Items/TodoItems';
@@ -13,26 +14,51 @@ const Wrapper = styled.div`
   padding: 10px;
 
   & > div {
-    height: calc(100% - 1rem);
+    height: 99%;
     border-radius: 8px;
-    overflow-y: auto;
   }
 
-  /* & > div::-webkit-scrollbar-thumb {
-    border-radius: 50%;
-    background-color: green;
-  } */
-
   .NotYet {
-    width: 55%;
-    background-color: lavender;
+    width: 50%;
+    background-color: #34383E;
   }
   
   .Completed {
-    width: 40%;
-    background-color: blueviolet;
-    padding-top: 1rem;
+    width: 45%;
+    background-color: #34383E;
+
+    .banner {
+      height: 75px;
+      background-color: #4A6BC7;
+      margin-bottom: 1rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: larger;
+      font-weight: bold;
+      color: #efefef;
+      border-radius: 8px 8px 0 0;
+    }
   } 
+`;
+
+const TodoWrapper = styled.ul`
+  width: 100%;
+  height: calc(100% - 75px - 1.5rem);
+  overflow-y: scroll;
+  border-radius: 8px;
+
+  ::-webkit-scrollbar {
+    width: 1.5rem;
+    background-color: transparent;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    border-radius: 1rem;
+    background-color: #4A6BC7;
+    background-clip: padding-box;
+    border: .5rem solid transparent;
+  }
 `;
 
 function TodoList() {
@@ -42,8 +68,30 @@ function TodoList() {
     const isChecked = checkedvalue;
     let notStared = [];
     const newArr = todos.map((todo) => {
-      if (todo.isChecked === isChecked && todo.stared) return (<TodoItems key={todo.id} todo={todo}/>);
-      else if (todo.isChecked === isChecked && !todo.stared) notStared.push(<TodoItems key={todo.id} todo={todo} />);
+      if (todo.isChecked === isChecked && todo.stared) return (
+        <motion.li
+          layout
+          key={todo.id}
+          initial = {{ scale: 0 }}
+          animate = {{ scale: 1 }}
+          exit = {{ scale: 0 }}
+          transition={{ type: "Inertia" }}
+        >
+          <TodoItems key={todo.id} todo={todo}/>
+        </motion.li>
+      );
+      else if (todo.isChecked === isChecked && !todo.stared) notStared.push(
+        <motion.li
+          layout
+          key={todo.id}
+          initial = {{ scale: 0 }}
+          animate = {{ scale: 1 }}
+          exit = {{ scale: 0 }}
+          transition={{ type: "Inertia" }}
+        >
+          <TodoItems key={todo.id} todo={todo} />
+        </motion.li>
+      );
     });
     return newArr.concat(notStared);
   };
@@ -52,10 +100,19 @@ function TodoList() {
     <Wrapper>
       <div className="NotYet">
         <AddTodo />
-        {handleTodo(false)}
+        <TodoWrapper>
+          <AnimatePresence mode='popLayout'>
+            {handleTodo(false)}
+          </AnimatePresence>
+        </TodoWrapper>
       </div>
       <div className="Completed">
-        {handleTodo(true)}
+        <div className="banner">완료한 할 일.</div>
+        <TodoWrapper>
+          <AnimatePresence mode='popLayout'>
+            {handleTodo(true)}
+          </AnimatePresence>
+        </TodoWrapper>
       </div>
     </Wrapper>
   );

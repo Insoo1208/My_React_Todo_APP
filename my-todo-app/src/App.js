@@ -10,7 +10,7 @@ const GlobalStyle = createGlobalStyle`
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    background-color: #2f2f2f;
+    background-color: #17181C;
   }
 
   * {
@@ -32,8 +32,9 @@ const StyledHeader = styled.header`
   font-size: 24px;
   font-weight: bold;
   border-radius: 8px;
-  color: green;
-  background-color: aquamarine;
+  color: #5E89FB;
+  background-color: #24282E;
+  border: 4px solid #5E89FB;
   display: flex;
   align-items: center;
   justify-content: center;

@@ -2,15 +2,14 @@ import styled from 'styled-components';
 import { useCallback, useState } from 'react';
 import Thumbnail from './Thumbnail';
 import Detail from './Detail';
-import { animate, AnimatePresence, motion } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 
 const Wrapper = styled.div`
-  width: calc(100% - 2rem);
-  margin: 0 auto;
+  width: calc(100% - 1rem);
+  margin: 0 0 1rem 1rem;
   border-radius: 8px;
-  background-color: ${props => props.stared ? '#FFFACD' : 'azure'};
-  color: 'green';
-  margin-bottom: 1rem;
+  background-color: ${props => props.stared ? '#FFFC9E' : '#2D427A'};
+  color: ${props => props.stared ? '#5E5336' : '#fdfdfd'};
   padding: 10px;
 `;
 
