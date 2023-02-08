@@ -77,7 +77,9 @@ const StyledButton = styled.button`
   }
 
   @media screen and (max-width: 450px) {
+    width: 1.8rem;
     display: flex;
+    justify-content: center;
     align-items: center;
   }
 `;
