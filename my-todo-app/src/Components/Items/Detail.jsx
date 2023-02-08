@@ -1,6 +1,9 @@
 import { useContext, useState } from 'react';
 import { v4 as uuidv4 } from "uuid";
 import styled from 'styled-components';
+import { ImPlus } from 'react-icons/im';
+import { useMediaQuery } from "react-responsive"
+import { AnimatePresence } from 'framer-motion';
 import TodoContext from '../../Contexts/TodoContext';
 import Contents from './Contents';
 
@@ -10,7 +13,11 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  `;
+
+  @media screen and (max-width: 450px) {
+    padding-left: 1rem;
+  }
+`;
 
 const StyledUl = styled.ul`
   width: 100%;
@@ -68,13 +75,20 @@ const StyledButton = styled.button`
   @media screen and (max-width: 1200px) {
     width: 20%;
   }
+
+  @media screen and (max-width: 450px) {
+    display: flex;
+    align-items: center;
+  }
 `;
 
 function Detail(props) {
   const { todo: { contents, id, stared } } = props;
   const [value, setValue] = useState('');
-
   const { todos, setTodos } = useContext(TodoContext);
+  const isSmallMobile = useMediaQuery({
+    query : "(max-width:450px)"
+  });
 
   const handleSubmit = id => {
     const newTodos = todos.map(todo => {
@@ -84,14 +98,17 @@ function Detail(props) {
       return todo;
     })  
     setTodos(newTodos);
+    localStorage.setItem('my-todos', JSON.stringify(newTodos));
     setValue('');
   };
 
   return (
     <Wrapper>
-      <StyledUl stared={stared}>
-        {contents.map(content => <Contents key={content.id} content={content} stared={stared} />)}
-      </StyledUl>
+      <AnimatePresence mode='popLayout'>
+        <StyledUl stared={stared}>
+          {contents.map(content => <Contents key={content.id} content={content} stared={stared} />)}
+        </StyledUl>
+      </AnimatePresence>
       <InputBoxWrapper stared={stared}>
         <label htmlFor='contentInputBox' />
         <StyledInput type="text" id='contentInputBox'
@@ -107,7 +124,7 @@ function Detail(props) {
           stared={stared}
           disabled={!value}
           onClick={() => handleSubmit(id)}
-        >추가</StyledButton>
+        >{isSmallMobile ? <ImPlus /> : '추가'}</StyledButton>
       </InputBoxWrapper>
     </Wrapper>
   );

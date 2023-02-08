@@ -1,8 +1,10 @@
 import { useContext, useState } from 'react';
 import styled from 'styled-components';
 import { MdStar, MdStarOutline } from "react-icons/md";
+import { ImPlus } from 'react-icons/im';
 import { v4 as uuidv4 } from "uuid";
 import TodoContext from '../Contexts/TodoContext';
+import { useMediaQuery } from "react-responsive"
 
 const Wrapper = styled.div`
   width: 100%;
@@ -11,12 +13,15 @@ const Wrapper = styled.div`
   background-color: #4A6BC7;
   margin-bottom: 1rem;
   display: flex;
-  column-gap: 15px;
+  column-gap: 1rem;
   align-items: center;
   border-radius: 8px 8px 0 0;
 
+  @media screen and (max-width: 450px) {
+      column-gap: .5rem;
+    }
+
   .star {
-    width: 5%;
     font-size: 1.5rem;
     font-weight: bold;
     text-align: center;
@@ -52,18 +57,29 @@ const Wrapper = styled.div`
     }
 
     @media screen and (max-width: 1200px) {
-      width: 15%;
+      width: auto;
+    }
+
+    @media screen and (max-width: 450px) {
+    display: flex;
+    align-items: center;
     }
   }
 `;
+
 function AddTodo() {
   const { todos, setTodos } = useContext(TodoContext);
   const [title, setTitle] = useState('');
   const [isStared, setIsStared] = useState(false);
 
+  const isSmallMobile = useMediaQuery({
+    query : "(max-width:450px)"
+  });
+
   const handleAdd = (title, isStared) => {
     const newTodo = {id: uuidv4(), title , contents: [], isChecked: false, stared: isStared}
     setTodos(todos.concat(newTodo));
+    localStorage.setItem('my-todos', JSON.stringify(todos.concat(newTodo)));
     setTitle('');
     setIsStared(false);
   };
@@ -82,7 +98,7 @@ function AddTodo() {
         autoComplete='off'
         onKeyUp={e => {if(e.key === 'Enter' && title) handleAdd(title, isStared)}}
       />
-      <button className='input-button' onClick={() => handleAdd(title, isStared)} disabled={!title}>추가</button>
+      <button className='input-button' onClick={() => handleAdd(title, isStared)} disabled={!title}>{isSmallMobile ? <ImPlus /> : '추가'}</button>
     </Wrapper>
   );
 }

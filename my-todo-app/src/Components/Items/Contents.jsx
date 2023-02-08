@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import { MdCheck, MdCircle, MdDelete } from 'react-icons/md'
 import { useContext } from 'react';
+import { AnimatePresence, motion } from 'framer-motion';
 import TodoContext from '../../Contexts/TodoContext';
 import LinesEllipsis from 'react-lines-ellipsis';
 
@@ -15,7 +16,7 @@ const theme = {
   }
 }
 
-const StyledLi = styled.li`
+const StyledLi = styled(motion.li)`
   margin-top: 1rem;
   color: ${props => props.ischecked == 'true' ? theme[props.stared].true : theme[props.stared].false};
   text-decoration: ${props => props.ischecked == 'true' ? 'line-through' : 'none'};
@@ -49,6 +50,8 @@ function Contents(props) {
       return todo;
     });
     setTodos(newTodo);
+    localStorage.setItem('my-todos', JSON.stringify(newTodo));
+
   };
 
   const handleDelete = id => {
@@ -57,10 +60,18 @@ function Contents(props) {
       return todo;
     });
     setTodos(newTodos);
+    localStorage.setItem('my-todos', JSON.stringify(newTodos));
+
   }
 
   return (
     <StyledLi
+      layout
+      key={id}
+      initial = {{ scale: 0 }}
+      animate = {{ scale: 1 }}
+      transition={{ type: "Inertia" }}
+
       stared={stared ? 'stared' : 'basic'}
       ischecked={contentChecked.toString()}
       onClick={() => handleCheck(id)}

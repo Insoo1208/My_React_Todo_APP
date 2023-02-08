@@ -1,58 +1,12 @@
 [
   {
-    "id": "5fc8403a-9f8c-4c02-b210-a1fa8422040c",
-    "title": "TODO SAMPLE 1",
-    "contents": [{"content": "This is Sample Contents", "contentChecked": false, "id" : "4f4f886b-d520-4934-9c1f-09e0bf0b0011"}],
-    "isChecked": false,
-    "stared": false
-  },
-  {
-    "id": "4f4f886b-d520-4934-9c1f-09e0bf0b84c0",
-    "title": "TODO SAMPLE CHECKED 1",
-    "contents": [{"content": "This is Sample Contents", "contentChecked": false, "id" : "4f4f886b-d520-4934-9c1f-09e0bf0b0000"}, {"content": "This is subContent", "contentChecked": true, "id" : "4f4f886b-d520-4934-9c1f-09e0bf0b0001"}],
-    "isChecked": true,
-    "stared": false
-  },
-  {
-    "id": "e1f5ced0-fdf2-46a1-afcd-538075fccb2b",
-    "title": "TODO SAMPLE STARED 1",
-    "contents": [{"content": "This is Sample Contents", "contentChecked": false, "id" : "4f4f886b-d520-4934-9c1f-09e0bf011110"}, {"content": "This is subContent", "contentChecked": false, "id" : "4f4f886b-d520-4934-9c1f-09e0bf0b0012"}],
+    "id": "00000000-0000-0000-0000-000000000000",
+    "title": "Read Me",
+    "contents": [
+      {"content": "INSOO의 TODO-APP입니다.", "contentChecked": true, "id" : "00000000-0000-0000-0000-000000000001"},
+      {"content": "새 할 일을 추가해보세요!", "contentChecked": false, "id" : "00000000-0000-0000-0000-000000000002"},
+      {"content": "세부 항목을 작성하여 관리해보세요!", "contentChecked": false, "id" : "00000000-0000-0000-0000-000000000003"}],
     "isChecked": false,
     "stared": true
-  },
-  {
-    "id": "e1f5ced0-fdf2-46a1-afcd-528045fccb2b",
-    "title": "TODO SAMPLE STARED 2",
-    "contents": [{"content": "This is subContent", "contentChecked": true, "id" : "4f4f886b-d520-4934-9c1f-0111110b0000"}],
-    "isChecked": false,
-    "stared": true
-  },
-  {
-    "id": "e1f5ced0-fdf2-46a1-afcd-524075fccb2b",
-    "title": "TODO SAMPLE 2",
-    "contents": [{"content": "This is subContent", "contentChecked": false, "id" : "4f4f886b-d520-4934-9c22-09e0bf0b0000"}],
-    "isChecked": false,
-    "stared": false
-  },
-  {
-    "id": "e1f5ced0-fdf2-46a1-afcd-528075fcc52b",
-    "title": "TODO SAMPLE STARED 3",
-    "contents": [{"content": "This is Sample Contents", "contentChecked": true, "id" : "4f4f886b-d520-3334-9c1f-09e0bf0b0000"}, {"content": "This is subContent", "contentChecked": false, "id" : "4f4f886b-d520-4934-333f-09e0bf0b0000"}],
-    "isChecked": false,
-    "stared": true
-  },
-  {
-    "id": "4f4f886b-d540-4934-9c1f-09e0bf0b84c0",
-    "title": "TODO SAMPLE CHECKED 2",
-    "contents": [{"content": "This is Sample Contents", "contentChecked": false, "id" : "4f4f886b-d110-4934-9c1f-09e0bf0b0000"}, {"content": "This is subContent", "contentChecked": true, "id" : "4f4f886b-d520-4934-931f-09e0bf0b0000"}],
-    "isChecked": true,
-    "stared": false
-  },
-  {
-    "id": "e1f5ced0-fdf2-44a1-afcd-524075fccb2b",
-    "title": "TODO SAMPLE 3",
-    "contents": [{"content": "This is Sample Contents", "contentChecked": false, "id" : "4f4f886b-d520-4934-9c1f-09e0bf022000"}, {"content": "This is subContent", "contentChecked": true, "id" : "4f4f886b-d520-4934-9122-09e0bf0b0000"}],
-    "isChecked": false,
-    "stared": false
   }
 ]

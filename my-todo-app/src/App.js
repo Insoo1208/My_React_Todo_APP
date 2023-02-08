@@ -11,6 +11,11 @@ const GlobalStyle = createGlobalStyle`
     padding: 0;
     box-sizing: border-box;
     background-color: #17181C;
+
+    /* 1200 900 450 */
+    @media screen and (max-width: 450px) {
+      font-size: 12px;
+    }
   }
 
   * {
@@ -22,16 +27,17 @@ const GlobalStyle = createGlobalStyle`
 const TodoWrapper = styled.div`
   width: 1200px;
   margin: 0 auto;
-  margin-top: 6rem;
+  padding-top: 6rem;
   overflow: hidden;
 
-  @media screen and (min-width: 768px) and (max-width: 1200px) {
-    width: 768px;
+  @media screen and (min-width: 900px) and (max-width: 1200px) {
+    width: 90vw;
   }
 
-  @media screen and (max-width: 768px) {
-    width: 500px;
-    padding: 0 2rem;
+  @media screen and (max-width: 900px) {
+    width: 80vw;
+    height: auto;
+    overflow-y: scroll;
   }
 `;
 

@@ -41,7 +41,7 @@ const Wrapper = styled.div`
     }
   }
 
-  @media screen and (max-width: 768px) {
+  @media screen and (max-width: 900px) {
     flex-direction: column;
     row-gap: 1rem;
     height: auto;

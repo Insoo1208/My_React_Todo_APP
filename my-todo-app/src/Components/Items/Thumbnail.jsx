@@ -6,7 +6,7 @@ import TodoContext from '../../Contexts/TodoContext';
 
 const Wrapper = styled.div`
   display: flex;
-  height: 75px;
+  height: 4.5rem;
 `;
 
 const ContentsWrapper = styled.div`
@@ -62,6 +62,8 @@ function Thumbnail(props) {
   const deleteTodo = id => {
     const newTodo = todos.filter(todo => todo.id !== id);
     setTodos(newTodo);
+    localStorage.setItem('my-todos', JSON.stringify(newTodo));
+
   };
 
   const handleStar = id => {
@@ -70,6 +72,7 @@ function Thumbnail(props) {
       return todo;
     });
     setTodos(newTodo);
+    localStorage.setItem('my-todos', JSON.stringify(newTodo));
   };
 
   const handleCheck = id => {
@@ -78,6 +81,7 @@ function Thumbnail(props) {
       return todo;
     });
     setTodos(newTodo);
+    localStorage.setItem('my-todos', JSON.stringify(newTodo));
   };
 
   return (
