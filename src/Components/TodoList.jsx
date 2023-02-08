@@ -45,7 +45,6 @@ const Wrapper = styled.div`
     flex-direction: column;
     row-gap: 1rem;
     height: auto;
-    overflow-y: scroll;
     
     .NotYet, .Completed {
       width: 100%;

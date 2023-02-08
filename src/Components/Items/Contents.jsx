@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { MdCheck, MdCircle, MdDelete } from 'react-icons/md'
 import { useContext } from 'react';
-import { AnimatePresence, motion } from 'framer-motion';
+import { motion } from 'framer-motion';
 import TodoContext from '../../Contexts/TodoContext';
 import LinesEllipsis from 'react-lines-ellipsis';
 
@@ -18,8 +18,8 @@ const theme = {
 
 const StyledLi = styled(motion.li)`
   margin-top: 1rem;
-  color: ${props => props.isChecked ? theme[props.starred].true : theme[props.starred].false};
-  text-decoration: ${props => props.isChecked ? 'line-through' : 'none'};
+  color: ${props => props.$isChecked ? theme[props.starred].true : theme[props.starred].false};
+  text-decoration: ${props => props.$isChecked ? 'line-through' : 'none'};
   display: flex;
   justify-content: space-between;
   column-gap: .5rem;
@@ -73,7 +73,7 @@ function Contents(props) {
       transition={{ type: "Inertia" }}
 
       starred={starred ? 'starred' : 'basic'}
-      isChecked={contentChecked}
+      $isChecked={contentChecked}
       onClick={() => handleCheck(id)}
     >
       <IconWrapper>

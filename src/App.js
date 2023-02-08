@@ -37,7 +37,6 @@ const TodoWrapper = styled.div`
   @media screen and (max-width: 900px) {
     width: 80vw;
     height: auto;
-    overflow-y: scroll;
   }
 `;
 
