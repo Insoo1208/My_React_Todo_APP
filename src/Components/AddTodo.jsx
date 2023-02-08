@@ -70,24 +70,24 @@ const Wrapper = styled.div`
 function AddTodo() {
   const { todos, setTodos } = useContext(TodoContext);
   const [title, setTitle] = useState('');
-  const [isStared, setIsStared] = useState(false);
+  const [isStarred, setisStarred] = useState(false);
 
   const isSmallMobile = useMediaQuery({
     query : "(max-width:450px)"
   });
 
-  const handleAdd = (title, isStared) => {
-    const newTodo = {id: uuidv4(), title , contents: [], isChecked: false, stared: isStared}
+  const handleAdd = (title, isStarred) => {
+    const newTodo = {id: uuidv4(), title , contents: [], isChecked: false, starred: isStarred}
     setTodos(todos.concat(newTodo));
     localStorage.setItem('my-todos', JSON.stringify(todos.concat(newTodo)));
     setTitle('');
-    setIsStared(false);
+    setisStarred(false);
   };
   
   return (
     <Wrapper>
-      <div className='star' onClick={() => setIsStared(isStared => !isStared)}>
-        {isStared ? <MdStar /> : <MdStarOutline /> }
+      <div className='star' onClick={() => setisStarred(isStarred => !isStarred)}>
+        {isStarred ? <MdStar /> : <MdStarOutline /> }
       </div>
       <label htmlFor='addTodoInput' />
       <input className='input-box' id='addTodoInput' type="text"
@@ -96,9 +96,9 @@ function AddTodo() {
         onChange={e => setTitle(e.target.value)}
         spellCheck={false}
         autoComplete='off'
-        onKeyUp={e => {if(e.key === 'Enter' && title) handleAdd(title, isStared)}}
+        onKeyUp={e => {if(e.key === 'Enter' && title) handleAdd(title, isStarred)}}
       />
-      <button className='input-button' onClick={() => handleAdd(title, isStared)} disabled={!title}>{isSmallMobile ? <ImPlus /> : '추가'}</button>
+      <button className='input-button' onClick={() => handleAdd(title, isStarred)} disabled={!title}>{isSmallMobile ? <ImPlus /> : '추가'}</button>
     </Wrapper>
   );
 }

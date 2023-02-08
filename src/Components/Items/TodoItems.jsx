@@ -8,8 +8,8 @@ const Wrapper = styled.div`
   width: calc(100% - 1rem);
   margin: 0 0 1rem 1rem;
   border-radius: 8px;
-  background-color: ${props => props.stared ? '#FFFC9E' : '#2D427A'};
-  color: ${props => props.stared ? '#5E5336' : '#fdfdfd'};
+  background-color: ${props => props.starred ? '#FFFC9E' : '#2D427A'};
+  color: ${props => props.starred ? '#5E5336' : '#fdfdfd'};
   padding: 10px;
 `;
 
@@ -18,15 +18,15 @@ const MotionWrapper = styled(motion.div)`
 `;
 
 function TodoItems(props) {
-  const { todo, todo: { stared } } = props;
+  const { todo, todo: { starred } } = props;
   const [detailOpened, setDetailOpened] = useState(false);
 
   const handleDetail = useCallback(() => {
     setDetailOpened(detailOpened => !detailOpened)
-  }, [detailOpened]);
+  }, []);
 
   return (
-    <Wrapper stared={stared}>
+    <Wrapper starred={starred}>
       <Thumbnail todo={todo} handleDetail={handleDetail}/>
       <AnimatePresence>
         {detailOpened && 

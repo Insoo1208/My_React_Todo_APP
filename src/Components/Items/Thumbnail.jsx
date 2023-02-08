@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { MdStar, MdStarOutline, MdCheckBox, MdCheckBoxOutlineBlank, MdRemoveCircleOutline } from "react-icons/md";
-import { useContext } from 'react';
+import React, { useContext } from 'react';
 import LinesEllipsis from 'react-lines-ellipsis';
 import TodoContext from '../../Contexts/TodoContext';
 
@@ -38,11 +38,11 @@ const CheckWrapper = styled.div`
 `;
 
 const Star = styled.div`
-  color: ${props => props.stared ? '#5E5336' : '#FFD700'};
+  color: ${props => props.starred ? '#5E5336' : '#FFD700'};
 `;
 
 const Check = styled.div`
-  color: ${props => props.stared ? '#5E5336' : '#5E89FB'};
+  color: ${props => props.starred ? '#5E5336' : '#5E89FB'};
 `;
 
 const DeleteWrapper = styled.div`
@@ -51,12 +51,12 @@ const DeleteWrapper = styled.div`
   justify-content: center;
   align-items: center;
   font-size: 1.5rem;
-  color: ${props => props.stared ? '#5E5336' : '#efefef'};
+  color: ${props => props.starred ? '#5E5336' : '#efefef'};
   cursor: pointer;
 `;
 
 function Thumbnail(props) {
-  const { todo: { title, stared, isChecked, id }, handleDetail } = props;
+  const { todo: { title, starred, isChecked, id }, handleDetail } = props;
   const { todos, setTodos } = useContext(TodoContext);
 
   const deleteTodo = id => {
@@ -68,7 +68,7 @@ function Thumbnail(props) {
 
   const handleStar = id => {
     const newTodo = todos.map(todo => {
-      if(todo.id === id) todo.stared = !todo.stared;
+      if(todo.id === id) todo.starred = !todo.starred;
       return todo;
     });
     setTodos(newTodo);
@@ -87,10 +87,10 @@ function Thumbnail(props) {
   return (
     <Wrapper>
       <CheckWrapper>
-        <Star className="star" onClick={() => handleStar(id)} stared={stared}>
-          {stared ? <MdStar /> : <MdStarOutline /> }
+        <Star className="star" onClick={() => handleStar(id)} starred={starred}>
+          {starred ? <MdStar /> : <MdStarOutline /> }
         </Star>
-        <Check className="check" onClick={() => handleCheck(id)} stared={stared} >
+        <Check className="check" onClick={() => handleCheck(id)} starred={starred} >
           {isChecked ? <MdCheckBox /> : <MdCheckBoxOutlineBlank />}
         </Check>
       </CheckWrapper>
@@ -104,11 +104,11 @@ function Thumbnail(props) {
           basedOn='letters'
         />
       </ContentsWrapper>
-      <DeleteWrapper stared={stared}>
+      <DeleteWrapper starred={starred}>
         <MdRemoveCircleOutline onClick={() => deleteTodo(id)}/>
       </DeleteWrapper>
     </Wrapper>
   );
 }
 
-export default Thumbnail;
+export default React.memo(Thumbnail);

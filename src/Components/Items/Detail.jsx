@@ -32,7 +32,7 @@ const StyledUl = styled.ul`
   
   ::-webkit-scrollbar-thumb {
     border-radius: 1rem;
-    background-color: ${props => props.stared ? '#5E5336' : '#5E89FB'};
+    background-color: ${props => props.starred ? '#5E5336' : '#5E89FB'};
     background-clip: padding-box;
     border: .35rem solid transparent;
   }
@@ -50,11 +50,11 @@ const StyledInput = styled.input`
   border: none;
   outline: none;
   background: transparent;
-  border-bottom: 2px solid ${props => props.stared ? '#5E5336' : '#5E89FB'};
-  color: ${props => props.stared ? '#5E5336' : '#fdfdfd'};
+  border-bottom: 2px solid ${props => props.starred ? '#5E5336' : '#5E89FB'};
+  color: ${props => props.starred ? '#5E5336' : '#fdfdfd'};
 
   ::placeholder {
-    color: ${props => props.stared ? '#5E5336' : '#efefef'};
+    color: ${props => props.starred ? '#5E5336' : '#efefef'};
   }
 `;
 
@@ -64,12 +64,12 @@ const StyledButton = styled.button`
   margin: 0 10px;
   cursor: pointer;
   color: white;
-  background-color: ${props => props.stared ? '#5E5336' : '#5E89FB'};
+  background-color: ${props => props.starred ? '#5E5336' : '#5E89FB'};
   border: none;
   border-radius: 6px;
 
   :hover {
-    background-color: ${props => props.stared ? '#80784D' : '#4A6BC7'};
+    background-color: ${props => props.starred ? '#80784D' : '#4A6BC7'};
   }
 
   @media screen and (max-width: 1200px) {
@@ -83,7 +83,7 @@ const StyledButton = styled.button`
 `;
 
 function Detail(props) {
-  const { todo: { contents, id, stared } } = props;
+  const { todo: { contents, id, starred } } = props;
   const [value, setValue] = useState('');
   const { todos, setTodos } = useContext(TodoContext);
   const isSmallMobile = useMediaQuery({
@@ -105,23 +105,23 @@ function Detail(props) {
   return (
     <Wrapper>
       <AnimatePresence mode='popLayout'>
-        <StyledUl stared={stared}>
-          {contents.map(content => <Contents key={content.id} content={content} stared={stared} />)}
+        <StyledUl starred={starred}>
+          {contents.map(content => <Contents key={content.id} content={content} starred={starred} />)}
         </StyledUl>
       </AnimatePresence>
-      <InputBoxWrapper stared={stared}>
+      <InputBoxWrapper starred={starred}>
         <label htmlFor='contentInputBox' />
         <StyledInput type="text" id='contentInputBox'
           placeholder='세부 항목을 입력하세요.'
           value={value}
-          stared={stared}
+          starred={starred}
           onChange={e => setValue(e.target.value)}
           spellCheck={false}
           autoComplete='off'
           onKeyUp={e => {if(e.key === 'Enter' && value) handleSubmit(id)}}
           />
         <StyledButton type='button'
-          stared={stared}
+          starred={starred}
           disabled={!value}
           onClick={() => handleSubmit(id)}
         >{isSmallMobile ? <ImPlus /> : '추가'}</StyledButton>

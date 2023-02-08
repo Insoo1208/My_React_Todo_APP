@@ -10,7 +10,7 @@ const theme = {
     true : '#5E89FB',
     false: '#fdfdfd'
   },
-  stared : {
+  starred : {
     true : '#80784D',
     false: '#5E5336'
   }
@@ -18,8 +18,8 @@ const theme = {
 
 const StyledLi = styled(motion.li)`
   margin-top: 1rem;
-  color: ${props => props.ischecked == 'true' ? theme[props.stared].true : theme[props.stared].false};
-  text-decoration: ${props => props.ischecked == 'true' ? 'line-through' : 'none'};
+  color: ${props => props.isChecked ? theme[props.starred].true : theme[props.starred].false};
+  text-decoration: ${props => props.isChecked ? 'line-through' : 'none'};
   display: flex;
   justify-content: space-between;
   column-gap: .5rem;
@@ -38,7 +38,7 @@ const IconWrapper = styled.div`
 `;
 
 function Contents(props) {
-  const { content: { content, contentChecked, id }, stared } = props;
+  const { content: { content, contentChecked, id }, starred } = props;
   const { todos, setTodos } = useContext(TodoContext);
 
   const handleCheck = id => {
@@ -72,8 +72,8 @@ function Contents(props) {
       animate = {{ scale: 1 }}
       transition={{ type: "Inertia" }}
 
-      stared={stared ? 'stared' : 'basic'}
-      ischecked={contentChecked.toString()}
+      starred={starred ? 'starred' : 'basic'}
+      isChecked={contentChecked}
       onClick={() => handleCheck(id)}
     >
       <IconWrapper>
@@ -87,7 +87,7 @@ function Contents(props) {
         trimRight
         basedOn='letters'
       />
-      <MdDelete style ={stared ? { color: '#80784D' } : { color: '#fdfdfd' }} onClick={e => {e.stopPropagation(); handleDelete(id)}}/>
+      <MdDelete style ={starred ? { color: '#80784D' } : { color: '#fdfdfd' }} onClick={e => {e.stopPropagation(); handleDelete(id)}}/>
     </StyledLi>
   );
 }

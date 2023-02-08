@@ -76,10 +76,11 @@ function TodoList() {
   const { todos } = useContext(TodoContext);
 
   const handleTodo = checkedvalue => {
-    const isChecked = checkedvalue;
-    let notStared = [];
-    const newArr = todos.map((todo) => {
-      if (todo.isChecked === isChecked && todo.stared) return (
+    let isStarred = [];
+    let notStarred = [];
+
+    for (const todo of todos) {
+      if (todo.isChecked === checkedvalue && todo.isStarred) isStarred.push(
         <motion.li
           layout
           key={todo.id}
@@ -91,7 +92,7 @@ function TodoList() {
           <TodoItems key={todo.id} todo={todo}/>
         </motion.li>
       );
-      else if (todo.isChecked === isChecked && !todo.stared) notStared.push(
+      else if (todo.isChecked === checkedvalue && !todo.isStarred) notStarred.push(
         <motion.li
           layout
           key={todo.id}
@@ -100,11 +101,12 @@ function TodoList() {
           exit = {{ scale: 0 }}
           transition={{ type: "Inertia" }}
         >
-          <TodoItems key={todo.id} todo={todo} />
+          <TodoItems key={todo.id} todo={todo}/>
         </motion.li>
       );
-    });
-    return newArr.concat(notStared);
+    };
+
+    return isStarred.concat(notStarred);
   };
 
   return (
