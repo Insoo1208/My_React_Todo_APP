@@ -56,32 +56,37 @@ const DeleteWrapper = styled.div`
 `;
 
 function Thumbnail(props) {
-  const { todo: { title, starred, isChecked, id }, handleDetail } = props;
+  const { todo: { title, starred, isChecked, id }, todo, handleDetail } = props;
   const { todos, setTodos } = useContext(TodoContext);
+  const checkedValue = todo.isChecked ? 'Completed' : 'InProgress';
 
   const deleteTodo = id => {
-    const newTodo = todos.filter(todo => todo.id !== id);
-    setTodos(newTodo);
-    localStorage.setItem('my-todos', JSON.stringify(newTodo));
-
+    const newTodo = todos[checkedValue].filter(todo => todo.id !== id);
+    const newTodos = {...todos, [checkedValue]: newTodo};
+    setTodos(newTodos);
   };
 
   const handleStar = id => {
-    const newTodo = todos.map(todo => {
+    const newTodo = todos[checkedValue].map(todo => {
       if(todo.id === id) todo.starred = !todo.starred;
       return todo;
     });
-    setTodos(newTodo);
-    localStorage.setItem('my-todos', JSON.stringify(newTodo));
+    const newTodos = {...todos, [checkedValue]: newTodo};
+    setTodos(newTodos);
   };
 
   const handleCheck = id => {
-    const newTodo = todos.map(todo => {
-      if(todo.id === id) todo.isChecked = !todo.isChecked;
-      return todo;
-    });
-    setTodos(newTodo);
-    localStorage.setItem('my-todos', JSON.stringify(newTodo));
+    const before = todo.isChecked ? 'Completed' : 'InProgress';
+    const after = todo.isChecked ? 'InProgress' : 'Completed';
+
+    todo.isChecked = !isChecked;
+
+    const oldTodo = todos[before].filter(todo => todo.id !== id);
+    const newTodo = todos[after].concat(todo);
+
+    const newTodos = {...todos, [before]: oldTodo, [after]: newTodo};
+
+    setTodos(newTodos);
   };
 
   return (

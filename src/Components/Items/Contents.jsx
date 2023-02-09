@@ -38,30 +38,31 @@ const IconWrapper = styled.div`
 `;
 
 function Contents(props) {
-  const { content: { content, contentChecked, id }, starred } = props;
+  const { todo, content: { content, contentChecked, id }, starred } = props;
   const { todos, setTodos } = useContext(TodoContext);
+  const checkedValue = todo.isChecked ? 'Completed' : 'InProgress';
 
   const handleCheck = id => {
-    const newTodo = todos.map(todo => {
+    const newTodo = [...todos[checkedValue]];
+    newTodo.map(todo => {
       todo.contents.map(content => {
         if (id === content.id) content.contentChecked = !content.contentChecked;
-        return content;
+          return content;
       });
-      return todo;
+      return todo
     });
-    setTodos(newTodo);
-    localStorage.setItem('my-todos', JSON.stringify(newTodo));
-
+    const newTodos = {...todos, [checkedValue]: newTodo};
+    setTodos(newTodos);
   };
 
   const handleDelete = id => {
-    const newTodos = todos.map(todo => {
+    const newTodo = [...todos[checkedValue]];
+    newTodo.map(todo => {
       todo.contents = {...todo}.contents.filter(content => id !== content.id);
       return todo;
     });
+    const newTodos = {...todos, [checkedValue]: newTodo};
     setTodos(newTodos);
-    localStorage.setItem('my-todos', JSON.stringify(newTodos));
-
   }
 
   return (

@@ -1,6 +1,6 @@
 import { createContext } from "react";
 
-const TodoContext = createContext([]);
+const TodoContext = createContext({InProgress: [], Completed: []});
 TodoContext.displayName = 'TodoContext';
 
 export default TodoContext;

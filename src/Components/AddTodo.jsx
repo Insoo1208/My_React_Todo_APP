@@ -77,9 +77,8 @@ function AddTodo() {
   });
 
   const handleAdd = (title, isStarred) => {
-    const newTodo = {id: uuidv4(), title , contents: [], isChecked: false, starred: isStarred}
-    setTodos(todos.concat(newTodo));
-    localStorage.setItem('my-todos', JSON.stringify(todos.concat(newTodo)));
+    const newTodo = todos.InProgress.concat({id: uuidv4(), title , contents: [], isChecked: false, starred: isStarred});
+    setTodos({...todos, InProgress: newTodo});
     setTitle('');
     setisStarred(false);
   };

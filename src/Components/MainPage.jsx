@@ -21,12 +21,17 @@ const Wrapper = styled.div`
 `;
 
 function MainPage() {
-  const [todos, setTodos] = useState([]);
+  const [todos, setTodos] = useState({InProgress: [], Completed: []});
+  
   useEffect(() => {
     const dbTodos = JSON.parse(localStorage.getItem('my-todos')) || data;
     setTodos(dbTodos);
   }, []);
-
+  
+  useEffect(() => {
+    localStorage.setItem('my-todos', JSON.stringify(todos));
+  }, [todos]);
+  
   return (
     <TodoContext.Provider value={{ todos, setTodos }}>
       <Wrapper>

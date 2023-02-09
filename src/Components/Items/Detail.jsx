@@ -85,7 +85,7 @@ const StyledButton = styled.button`
 `;
 
 function Detail(props) {
-  const { todo: { contents, id, starred } } = props;
+  const { todo: { contents, id, starred }, todo } = props;
   const [value, setValue] = useState('');
   const { todos, setTodos } = useContext(TodoContext);
   const isSmallMobile = useMediaQuery({
@@ -93,14 +93,15 @@ function Detail(props) {
   });
 
   const handleSubmit = id => {
-    const newTodos = todos.map(todo => {
-      if (id === todo.id) {
+    const checkedValue = todo.isChecked ? 'Completed' : 'InProgress';
+    const newTodo = [...todos[checkedValue]];
+    newTodo.map(todo => {
+      if(id === todo.id) {
         todo.contents.push({content: value, contentChecked: false, id: uuidv4()});
       }
-      return todo;
-    })  
+    });
+    const newTodos = {...todos, [checkedValue]: newTodo};
     setTodos(newTodos);
-    localStorage.setItem('my-todos', JSON.stringify(newTodos));
     setValue('');
   };
 
@@ -108,7 +109,7 @@ function Detail(props) {
     <Wrapper>
       <AnimatePresence mode='popLayout'>
         <StyledUl starred={starred}>
-          {contents.map(content => <Contents key={content.id} content={content} starred={starred} />)}
+          {contents.map(content => <Contents key={content.id} content={content} starred={starred} todo={todo}/>)}
         </StyledUl>
       </AnimatePresence>
       <InputBoxWrapper starred={starred}>

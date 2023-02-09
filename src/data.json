@@ -1,5 +1,5 @@
-[
-  {
+{
+  "InProgress": [{
     "id": "00000000-0000-0000-0000-000000000000",
     "title": "Read Me",
     "contents": [
@@ -8,5 +8,6 @@
       {"content": "세부 항목을 작성하여 관리해보세요!", "contentChecked": false, "id" : "00000000-0000-0000-0000-000000000003"}],
     "isChecked": false,
     "starred": true
-  }
-]
+  }],
+  "Completed": []
+}
