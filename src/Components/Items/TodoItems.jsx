@@ -3,7 +3,6 @@ import { useCallback, useState } from 'react';
 import Thumbnail from './Thumbnail';
 import Detail from './Detail';
 import { AnimatePresence, motion } from 'framer-motion';
-import { Draggable } from 'react-beautiful-dnd';
 
 const Wrapper = styled.div`
   width: calc(100% - 1rem);
@@ -19,7 +18,7 @@ const MotionWrapper = styled(motion.div)`
 `;
 
 function TodoItems(props) {
-  const { todo, todo: { id, starred }, index } = props;
+  const { todo, todo: { starred } } = props;
   const [detailOpened, setDetailOpened] = useState(false);
 
   const handleDetail = useCallback(() => {
@@ -27,47 +26,40 @@ function TodoItems(props) {
   }, []);
 
   return (
-    <Draggable draggableId={id} index={index} isDragDisabled={detailOpened}>
-      {provided => (
-        <Wrapper
-          starred={starred}
-          {...provided.draggableProps}
-          {...provided.dragHandleProps}
-          ref={provided.innerRef}
-        >
-          <Thumbnail todo={todo} handleDetail={handleDetail}/>
-          <AnimatePresence>
-            {detailOpened && 
-              <MotionWrapper key="detail"
-                initial={{ height: 0, opacity: 0 }}
-                animate={{ height: 'auto', opacity: 1,
-                  transition : {
-                    height : {
-                      duration: .35,
-                    },
-                    opacity : {
-                      delay: .3
-                    }
-                  }
-                }}
-                exit={{ height: 0, opacity : 0,
-                  transition : {
-                    height : {
-                      delay: .25
-                    },
-                    opacity : {
-                      duration: .15
-                    }
-                  }
-                }}
-              >
-                <Detail todo={todo} />
-              </MotionWrapper>
-            }
-          </AnimatePresence>
-        </Wrapper>
-      )}
-    </Draggable>
+    <Wrapper
+      starred={starred}
+    >
+      <Thumbnail todo={todo} handleDetail={handleDetail}/>
+      <AnimatePresence>
+        {detailOpened && 
+          <MotionWrapper key="detail"
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: 'auto', opacity: 1,
+              transition : {
+                height : {
+                  duration: .35,
+                },
+                opacity : {
+                  delay: .3
+                }
+              }
+            }}
+            exit={{ height: 0, opacity : 0,
+              transition : {
+                height : {
+                  delay: .25
+                },
+                opacity : {
+                  duration: .15
+                }
+              }
+            }}
+          >
+            <Detail todo={todo} />
+          </MotionWrapper>
+        }
+      </AnimatePresence>
+    </Wrapper>
   );
 }
 

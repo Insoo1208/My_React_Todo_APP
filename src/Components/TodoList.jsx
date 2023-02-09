@@ -1,7 +1,6 @@
 import { useContext } from 'react';
 import styled from 'styled-components';
 import { AnimatePresence, motion } from 'framer-motion';
-import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
 import TodoContext from '../Contexts/TodoContext';
 import AddTodo from './AddTodo';
 import TodoItems from './Items/TodoItems';
@@ -65,13 +64,13 @@ const TodoWrapper = styled.ul`
 `;
 
 function TodoList() {
-  const { todos, setTodos } = useContext(TodoContext);
+  const { todos } = useContext(TodoContext);
 
   const handleTodo = checkedvalue => {
     let isStarred = [];
     let notStarred = [];
 
-    todos[checkedvalue].forEach((todo, index) => {
+    for (const todo of todos[checkedvalue]) {
       if (todo.starred) isStarred.push(
         <motion.li
           layout
@@ -81,7 +80,7 @@ function TodoList() {
           exit = {{ scale: 0 }}
           transition={{ type: "Inertia" }}
         >
-          <TodoItems key={todo.id} todo={todo} index={index}/>
+          <TodoItems key={todo.id} todo={todo} />
         </motion.li>
       );
       else if (!todo.starred) notStarred.push(
@@ -93,75 +92,32 @@ function TodoList() {
           exit = {{ scale: 0 }}
           transition={{ type: "Inertia" }}
         >
-          <TodoItems key={todo.id} todo={todo} index={index}/>
+          <TodoItems key={todo.id} todo={todo} />
         </motion.li>
       );
-    });
+    }
 
     return isStarred.concat(notStarred);
   };
 
-  const onDragEnd = result => {
-    const { destination, source } = result;
-
-    if(!destination) return;
-    if (
-      destination.droppableId === source.droppableId &&
-      source.index === destination.index
-    ) return;
-
-    if (destination.droppableId !== source.droppableId) {
-      const oldTodos = [...todos[source.droppableId]];
-      const newTodos = [...todos[destination.droppableId]];
-      const tmp = oldTodos.slice(source.index, source.index + 1);
-      tmp[0].isChecked = !tmp[0].isChecked;
-      oldTodos.splice(source.index, 1)
-      newTodos.splice(destination.index, 0, ...tmp);
-      setTodos({...todos, [source.droppableId]: oldTodos, [destination.droppableId]: newTodos});
-    }
-    else if (destination.droppableId === source.droppableId) {
-      const newTodos = [...todos[destination.droppableId]];
-      const tmp = newTodos.slice(source.index, source.index + 1);
-      newTodos.splice(source.index, 1);
-      newTodos.splice(destination.index, 0, ...tmp);
-      setTodos({...todos, [destination.droppableId]: newTodos});
-    };
-  };
-
   return (
     <Wrapper>
-      <DragDropContext onDragEnd={onDragEnd}>
-        <Droppable droppableId='InProgress'>
-          {provided => (
-            <div className="InProgress"
-              {...provided.droppableProps} ref={provided.innerRef}
-            >
-              <AddTodo />
-              <TodoWrapper>
-                <AnimatePresence mode='popLayout'>
-                  {handleTodo('InProgress')}
-                </AnimatePresence>
-                {provided.placeholder}
-              </TodoWrapper>
-            </div>)
-          }
-        </Droppable>
-        <Droppable droppableId='Completed'>
-          {provided => (
-            <div className="Completed"
-              {...provided.droppableProps} ref={provided.innerRef}
-            >
-              <div className="banner">완료한 할 일.</div>
-              <TodoWrapper>
-                <AnimatePresence mode='popLayout'>
-                  {handleTodo('Completed')}
-                </AnimatePresence>
-                {provided.placeholder}
-              </TodoWrapper>
-            </div>
-          )}
-        </Droppable>
-      </DragDropContext>
+      <div className="InProgress">
+        <AddTodo />
+        <TodoWrapper>
+          <AnimatePresence mode='popLayout'>
+            {handleTodo('InProgress')}
+          </AnimatePresence>
+        </TodoWrapper>
+      </div>
+      <div className="Completed">
+        <div className="banner">완료한 할 일.</div>
+        <TodoWrapper>
+          <AnimatePresence mode='popLayout'>
+            {handleTodo('Completed')}
+          </AnimatePresence>
+        </TodoWrapper>
+      </div>
     </Wrapper>
   );
 }

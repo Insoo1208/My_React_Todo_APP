@@ -76,6 +76,13 @@ function Thumbnail(props) {
   };
 
   const handleCheck = id => {
+    console.log(todo.contents);
+    const isAllChecked = todo.contents.reduce((acc, content) => {
+      if (!content.contentChecked) return acc = false;
+    }, true);
+
+    console.log(isAllChecked);
+
     const before = todo.isChecked ? 'Completed' : 'InProgress';
     const after = todo.isChecked ? 'InProgress' : 'Completed';
 
