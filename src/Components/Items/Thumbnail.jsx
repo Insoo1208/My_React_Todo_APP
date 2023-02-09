@@ -76,24 +76,24 @@ function Thumbnail(props) {
   };
 
   const handleCheck = id => {
-    console.log(todo.contents);
     const isAllChecked = todo.contents.reduce((acc, content) => {
       if (!content.contentChecked) return acc = false;
+      else return acc;
     }, true);
 
-    console.log(isAllChecked);
+    if (isAllChecked) {
+      const before = todo.isChecked ? 'Completed' : 'InProgress';
+      const after = todo.isChecked ? 'InProgress' : 'Completed';
 
-    const before = todo.isChecked ? 'Completed' : 'InProgress';
-    const after = todo.isChecked ? 'InProgress' : 'Completed';
+      todo.isChecked = !isChecked;
 
-    todo.isChecked = !isChecked;
+      const oldTodo = todos[before].filter(todo => todo.id !== id);
+      const newTodo = todos[after].concat(todo);
 
-    const oldTodo = todos[before].filter(todo => todo.id !== id);
-    const newTodo = todos[after].concat(todo);
+      const newTodos = { ...todos, [before]: oldTodo, [after]: newTodo };
 
-    const newTodos = {...todos, [before]: oldTodo, [after]: newTodo};
-
-    setTodos(newTodos);
+      setTodos(newTodos);
+    };
   };
 
   return (
