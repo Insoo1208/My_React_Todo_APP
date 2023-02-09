@@ -71,10 +71,8 @@ function TodoList() {
     let isStarred = [];
     let notStarred = [];
 
-    // console.log(todos);
-
     todos[checkedvalue].forEach((todo, index) => {
-      if (todo.isStarred) isStarred.push(
+      if (todo.starred) isStarred.push(
         <motion.li
           layout
           key={todo.id}
@@ -86,7 +84,7 @@ function TodoList() {
           <TodoItems key={todo.id} todo={todo} index={index}/>
         </motion.li>
       );
-      else if (!todo.isStarred) notStarred.push(
+      else if (!todo.starred) notStarred.push(
         <motion.li
           layout
           key={todo.id}
