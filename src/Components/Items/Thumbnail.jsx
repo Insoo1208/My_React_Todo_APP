@@ -86,10 +86,8 @@ function Thumbnail(props) {
 
       const oldTodo = todos[before].filter(todo => todo.id !== id);
       const newTodo = todos[after].concat(todo);
-
-      const newTodos = { ...todos, [before]: oldTodo, [after]: newTodo };
-
-      setTodos(newTodos);
+      
+      setTodos({ ...todos, [before]: oldTodo, [after]: newTodo });
     };
   };
 
