@@ -64,7 +64,7 @@ const TodoWrapper = styled.ul`
 `;
 
 function TodoList() {
-  const { todos } = useContext(TodoContext);
+  const { todos, setTodos } = useContext(TodoContext);
 
   const handleTodo = checkedvalue => {
     let isStarred = [];
@@ -80,7 +80,7 @@ function TodoList() {
           exit = {{ scale: 0 }}
           transition={{ type: "Inertia" }}
         >
-          <TodoItems key={todo.id} todo={todo} />
+            <TodoItems key={todo.id} todo={todo} />
         </motion.li>
       );
       else if (!todo.starred) notStarred.push(
@@ -92,7 +92,7 @@ function TodoList() {
           exit = {{ scale: 0 }}
           transition={{ type: "Inertia" }}
         >
-          <TodoItems key={todo.id} todo={todo} />
+            <TodoItems key={todo.id} todo={todo} />
         </motion.li>
       );
     }
